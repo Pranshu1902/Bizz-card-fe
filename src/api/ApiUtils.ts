@@ -60,3 +60,7 @@ export const signup = async (username: string, password: string) => {
   const data = { username: username, password: password };
   return request("POST", data, "user/");
 };
+
+export const me = async () => {
+  return request("GET", {}, "api/user/");
+};
