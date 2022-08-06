@@ -52,7 +52,7 @@ export default function PreviewCard(props: {
             <div className="flex gap-2">
               {card.links.map((link: link) => {
                 return (
-                  <a href={link.href} target={"_blank"} rel={"noreferrer"}>
+                  <a href={link.link} target={"_blank"} rel={"noreferrer"}>
                     <i
                       className={`${link.icon} ${
                         card.color === "purple"

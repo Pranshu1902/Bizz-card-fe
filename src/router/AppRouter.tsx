@@ -10,7 +10,7 @@ import Signup from "../Components/User/Signup";
 const routes = {
   "/": () => <LandingPage />,
   "/home": () => <Home />,
-  "/preview": () => <Preview />,
+  "/preview/:id": ({ id }: { id: string }) => <Preview id={Number(id)} />,
   "/profile": () => <Profile />,
   "/create": () => <CreateCard />,
   "/login": () => <Login />,

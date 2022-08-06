@@ -1,7 +1,8 @@
 export type link = {
-  href: string;
+  link: string;
   icon: string;
   name: string;
+  card?: Number;
 };
 
 export type card = {

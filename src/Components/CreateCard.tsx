@@ -1,7 +1,7 @@
 import { Button, CircularProgress, TextField } from "@mui/material";
 import { navigate } from "raviger";
 import { useEffect, useState } from "react";
-import { postCards } from "../api/ApiUtils";
+import { getCards, postCards, postLinks } from "../api/ApiUtils";
 import ColorRadioButton from "../Common/ColorRadioButton";
 import { link } from "../Common/DataType";
 import Header from "../Common/Header";
@@ -27,19 +27,27 @@ export default function CreateCard() {
     setLoading(true);
     postCards(name, title, description, email, phone, location, color).then(
       () => {
-        setLoading(false);
-        navigate("/home");
+        // getting the current card id
+        getCards().then((data) => {
+          const cardId = data[data.length - 1].id;
+          // uploading the links for current card
+          links.forEach((link) => {
+            postLinks(link.name, link.icon, link.link, cardId).then(() => {
+              setLoading(false);
+              navigate("/home");
+            });
+          });
+        });
       }
     );
   };
 
   const removeLink = (href: string) => {
-    setLinks(links.filter((link) => link.href !== href));
+    setLinks(links.filter((link) => link.link !== href));
   };
 
   const addLink = () => {
-    // e.preventDefault();
-    const link = { name: linkName, href: href, icon: linkIcon };
+    const link = { name: linkName, link: href, icon: linkIcon };
     setLinks([...links, link]);
     console.log(links);
     setHref("");
@@ -146,7 +154,7 @@ export default function CreateCard() {
                           <i className={link.icon}></i> {link.name}
                         </div>
                         <i
-                          onClick={() => removeLink(link.href)}
+                          onClick={() => removeLink(link.link)}
                           className="fa fa-remove text-red-500 cursor-pointer"
                         ></i>
                       </div>
@@ -245,7 +253,7 @@ export default function CreateCard() {
                       {links.map((link: link) => {
                         return (
                           <a
-                            href={link.href}
+                            href={link.link}
                             target={"_blank"}
                             rel={"noreferrer"}
                           >

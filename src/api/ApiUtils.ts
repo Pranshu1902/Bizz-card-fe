@@ -93,3 +93,17 @@ export const postCards = async (
 export const deleteCard = async (id: number) => {
   return request("DELETE", {}, `card/${id}/`);
 };
+
+export const getLinks = async () => {
+  return request("GET", {}, "link/");
+};
+
+export const postLinks = async (
+  name: string,
+  icon: string,
+  link: string,
+  cardId: Number
+) => {
+  const data = { name: name, icon: icon, link: link, card: cardId };
+  return request("POST", data, "link/");
+};
