@@ -118,7 +118,7 @@ export default function Home() {
                 </div>
               ))
             ) : (
-              <div className="text-3xl flex justify-center items-center pt-6">
+              <div className="text-3xl flex justify-center items-center pt-6 w-screen">
                 No cards found
               </div>
             )}
