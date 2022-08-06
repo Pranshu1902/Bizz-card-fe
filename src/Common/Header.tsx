@@ -1,4 +1,5 @@
 import { Button } from "@mui/material";
+import { navigate } from "raviger";
 import logo from "../Images/logo.png";
 import DropDown from "./DropDown";
 
@@ -7,7 +8,12 @@ export default function Header(props: { tab: string }) {
     <div className="bg-gradient-to-tr from-[#ca5cdd] to-[#8a00c2] p-3">
       <div className="flex justify-between">
         <div className="w-1/4 flex items-center">
-          <img width={100} src={logo} alt="logo" />
+          <img
+            width={100}
+            src={logo}
+            alt="logo"
+            onClick={() => navigate("/")}
+          />
         </div>
         <div className="w-1/2 flex justify-center">
           <h1 className="text-7xl font-bold text-[#ffffff]">Bizz Card</h1>

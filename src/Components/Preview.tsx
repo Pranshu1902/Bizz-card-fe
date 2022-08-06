@@ -22,11 +22,11 @@ export default function Preview(props: { id: number }) {
   useEffect(() => {
     getCards().then((data) => {
       setCard(data.filter((card: card) => card.id === props.id)[0]);
-      setLoading(false);
       getLinks().then((datas) => {
         setLinks(
           datas.filter((link: link) => Number(link.card) === Number(props.id))
         );
+        setLoading(false);
       });
     });
 
