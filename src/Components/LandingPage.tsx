@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import logo from "../Images/logo.png";
 import Header from "../Common/Header";
 import bg from "../Images/bg.jpeg";
 import home from "../Images/home.png";
