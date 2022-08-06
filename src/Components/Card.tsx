@@ -270,7 +270,7 @@ export default function Card(props: { type: string; id: number }) {
                       variant="contained"
                       color="primary"
                     >
-                      {props.type === "create" ? "Create & Publish" : "Edit"}
+                      {props.type === "create" ? "Create & Publish" : "Update"}
                     </Button>
                   </div>
                 )}

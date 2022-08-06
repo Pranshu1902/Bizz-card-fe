@@ -10,7 +10,6 @@ function classNames(...classes: any[]) {
 export default function DropDown(props: { currentTab: string }) {
   const filters: any[] = [
     { title: "Home", active: true, icon: "fa fa-home", href: "/home" },
-    { title: "Preview", active: false, icon: "fa fa-eye", href: "/preview" },
     { title: "Profile", active: false, icon: "fa fa-user", href: "/profile" },
     {
       title: "Logout",
