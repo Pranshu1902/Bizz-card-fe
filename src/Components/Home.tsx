@@ -52,7 +52,7 @@ export default function Home() {
   return (
     <div>
       <Header tab={"Home"} />
-      <div className="p-4 text-[#4c00b0]">
+      <div className="p-4 text-[#4c00b0] bg-gradient-to-bl from-purple-100 to-purple-300 min-h-screen">
         <p className="text-gray-500 text-4xl">Home</p>
         <div className="flex flex-col md:flex-row justify-between gap-4">
           <div>
@@ -84,7 +84,7 @@ export default function Home() {
                       : card.color === "blue"
                       ? "bg-blue-100 text-blue-600"
                       : "bg-red-100 text-red-600"
-                  } flex flex-row gap-4 p-4 rounded-lg relative`}
+                  } flex flex-row gap-4 p-4 rounded-xl relative hover:scale-105 transition duration-300`}
                 >
                   <div>
                     <i className=" text-7xl fa fa-user"></i>
