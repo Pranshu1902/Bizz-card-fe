@@ -32,8 +32,8 @@ export default function Profile() {
   return (
     <div>
       <Header tab={"Profile"} />
-      <div className="p-4">
-        <p className="text-5xl font-bold text-purple-500">Profile</p>
+      <div className="p-4 bg-gradient-to-bl from-purple-100 to-purple-400 min-h-screen">
+        <p className="text-5xl font-bold text-[#4c00b0]">Profile</p>
         {loading ? (
           <div className="flex justify-center pt-6">
             <CircularProgress color="secondary" />
