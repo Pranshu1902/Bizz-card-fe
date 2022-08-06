@@ -97,18 +97,18 @@ export default function Home() {
                   </div>
                   <div className="flex gap-4 right-2 bottom-2 absolute text-xl">
                     <i
-                      className="fa fa-edit cursor-pointer"
+                      className="fa fa-edit cursor-pointer hover:scale-125 transition duration-300"
                       onClick={() => navigate(`/update/${card.id}`)}
                     ></i>
                     <i
-                      className="fa fa-eye cursor-pointer"
+                      className="fa fa-eye cursor-pointer hover:scale-125 transition duration-300"
                       onClick={() => {
                         setPreviewCard(true);
                         setCardItem(card);
                       }}
                     ></i>
                     <i
-                      className="fa fa-remove cursor-pointer"
+                      className="fa fa-remove cursor-pointer hover:text-red-500 hover:scale-125 transition duration-300"
                       onClick={() => {
                         setDeleteCard(true);
                         setCardItem(card);
