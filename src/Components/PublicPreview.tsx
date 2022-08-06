@@ -111,9 +111,18 @@ export default function PublicPreview(props: {
                                   : "bg-red-200 hover:bg-red-300"
                               } hover:bg-purple-300 hover:scale-105 transition duration-300 rounded-full p-2`}
                             ></i>
+                            
                           </a>
+
                         );
+                        
                       })}
+                      <i className="fa fa-print cursor-pointer flex items-center bg-red-100 hover:bg-red-200 transition duration-300 rounded-full p-2" 
+                    onClick={()=>{
+                      window.print();return false;
+                      
+                    }}
+                    ></i>
                     </div>
                   )}
                 </div>
