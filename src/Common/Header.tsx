@@ -16,7 +16,9 @@ export default function Header(props: { tab: string }) {
           />
         </div>
         <div className="w-1/2 flex justify-center">
-          <h1 className="text-7xl font-bold text-[#ffffff]">Bizz Card</h1>
+          <h1 className="text-7xl font-bold font-serif text-[#ffffff]">
+            Bizz Card
+          </h1>
         </div>
         <div className="flex w-1/4 justify-end items-center">
           {props.tab === "LandingPage" ? (
