@@ -64,3 +64,28 @@ export const signup = async (username: string, password: string) => {
 export const me = async () => {
   return request("GET", {}, "api/user/");
 };
+
+export const getCards = async () => {
+  return request("GET", {}, "card/");
+};
+
+export const postCards = async (
+  name: string,
+  title: string,
+  description: string,
+  email: string,
+  phone: string,
+  location: string,
+  color: string = "purple"
+) => {
+  const data = {
+    name: name,
+    title: title,
+    description: description,
+    email: email,
+    phone: phone,
+    location: location,
+    color: color,
+  };
+  return request("POST", data, "card/");
+};

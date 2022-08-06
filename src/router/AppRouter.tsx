@@ -1,4 +1,5 @@
 import { useRoutes } from "raviger";
+import CreateCard from "../Components/CreateCard";
 import Home from "../Components/Home";
 import LandingPage from "../Components/LandingPage";
 import Preview from "../Components/Preview";
@@ -11,6 +12,7 @@ const routes = {
   "/home": () => <Home />,
   "/preview": () => <Preview />,
   "/profile": () => <Profile />,
+  "/create": () => <CreateCard />,
   "/login": () => <Login />,
   "/signup": () => <Signup />,
 };

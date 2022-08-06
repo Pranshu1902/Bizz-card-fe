@@ -13,20 +13,18 @@ export default function DropDown(props: { currentTab: string }) {
     { title: "Preview", active: false, icon: "fa fa-eye", href: "/preview" },
     { title: "Profile", active: false, icon: "fa fa-user", href: "/profile" },
   ];
-
-  //   useEffect(() => {
-  //     filters.forEach((filter) => {
-  //       filter.title === props.currentTab
-  //         ? (filter.active = true)
-  //         : (filter.active = false);
-  //     });
-  //   }, [filters, props.currentTab]);
+  filters.forEach((filter) => {
+    filter.title === props.currentTab
+      ? (filter.active = true)
+      : (filter.active = false);
+  });
 
   return (
     <Menu as="div" className="relative w-3/4 inline-block text-left">
       <div>
         <Menu.Button className="inline-flex justify-start w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-bold text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
-          {filters.filter((field: any) => field.active)[0].title}
+          {filters.filter((field: any) => field.active)[0].title}&nbsp;
+          <i className="flex items-center fa-solid fa-angle-down"></i>
           <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
         </Menu.Button>
       </div>
@@ -54,21 +52,6 @@ export default function DropDown(props: { currentTab: string }) {
                     )}
                     onClick={() => {
                       navigate(filterElement.href);
-                      let newFilter: any[] = [];
-                      filters.forEach((element: any) => {
-                        if (element.title === filterElement.title) {
-                          newFilter.push({
-                            title: element.title,
-                            active: true,
-                          });
-                        } else {
-                          newFilter.push({
-                            title: element.title,
-                            active: false,
-                          });
-                        }
-                      });
-                      // setFilter(newFilter);
                     }}
                   >
                     <i className={filterElement.icon}></i>&nbsp;
