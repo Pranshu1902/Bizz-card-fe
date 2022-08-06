@@ -14,7 +14,7 @@ import { link } from "../Common/DataType";
 import Header from "../Common/Header";
 import SocialMediaDropDown from "../Common/SocialMediaDropDown";
 
-export default function CreateCard(props: { type: string; id: number }) {
+export default function Card(props: { type: string; id: number }) {
   const [name, setName] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -110,7 +110,7 @@ export default function CreateCard(props: { type: string; id: number }) {
     }
 
     document.title = "Create Card | Bizz Card";
-  }, []);
+  }, [props.id, props.type]);
 
   return (
     <div>

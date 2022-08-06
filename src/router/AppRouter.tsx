@@ -1,5 +1,5 @@
 import { useRoutes } from "raviger";
-import CreateCard from "../Components/CreateCard";
+import Card from "../Components/Card";
 import Home from "../Components/Home";
 import LandingPage from "../Components/LandingPage";
 import Preview from "../Components/Preview";
@@ -20,9 +20,9 @@ const routes = {
     cardId: string;
   }) => <PublicPreview userId={Number(userId)} cardId={Number(cardId)} />,
   "/profile": () => <Profile />,
-  "/create": () => <CreateCard type="create" id={0} />,
+  "/create": () => <Card type="create" id={0} />,
   "/update/:id": ({ id }: { id: string }) => (
-    <CreateCard type="edit" id={Number(id)} />
+    <Card type="edit" id={Number(id)} />
   ),
   "/login": () => <Login />,
   "/signup": () => <Signup />,
