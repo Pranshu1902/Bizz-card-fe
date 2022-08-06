@@ -18,15 +18,13 @@ export default function PreviewCard(props: {
           (link: link) => Number(link.card) === Number(props.card.id)
         )
       );
-      console.log(props.card.id);
-      console.log(datas);
       setLoading(false);
     });
   }, [props.card.id]);
   return (
     <div>
       {loading ? (
-        <div>
+        <div className="flex justify-center items-center p-6">
           <CircularProgress color="secondary" />
         </div>
       ) : (
