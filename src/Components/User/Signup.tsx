@@ -9,7 +9,7 @@ export default function Signup() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
-  const [successError, setSuccessError] = useState(true);
+  const [successError, setSuccessError] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -17,14 +17,23 @@ export default function Signup() {
     setError("");
     if (password !== confirmPassword) {
       setError("Passwords do not match");
+      setSuccessError(false);
     } else {
       try {
         setLoading(true);
-        signup(username, password).then(() => {
-          navigate(`/login`);
-          setError("Signup successful!");
-          setSuccessError(true);
-          setLoading(false);
+        signup(username, password).then((response) => {
+          if (response && response.id) {
+            setTimeout(() => {
+              navigate("/login");
+            }, 2000);
+            setError("Signup successful!");
+            setSuccessError(true);
+            setLoading(false);
+          } else {
+            setError("Signup failed!");
+            setSuccessError(false);
+            setLoading(false);
+          }
         });
       } catch (error) {
         setError("Signup Failed!!!");
