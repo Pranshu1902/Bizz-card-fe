@@ -4,12 +4,36 @@ import { useEffect, useState } from "react";
 import { getCards, me } from "../api/ApiUtils";
 import { card } from "../Common/DataType";
 import Header from "../Common/Header";
+import Popup from "../Common/Popup";
+import DeleteCard from "./Modals/DeleteCard";
+import PreviewCard from "./Modals/PreviewCard";
 
 export default function Home() {
   const [username, setUsername] = useState("");
   const sampleCardsList: card[] = [];
   const [cards, setCards] = useState(sampleCardsList);
   const [loading, setLoading] = useState(true);
+  const [deleteCard, setDeleteCard] = useState(false);
+  const [cardItem, setCardItem] = useState<card>({
+    id: 0,
+    name: "",
+    description: "",
+    location: "",
+    title: "",
+    phone: "",
+    email: "",
+    color: "",
+    links: [],
+  });
+  const [previewCard, setPreviewCard] = useState(false);
+
+  const fetchData = () => {
+    setLoading(true);
+    getCards().then((data) => {
+      setCards(data);
+      setLoading(false);
+    });
+  };
 
   useEffect(() => {
     if (!localStorage.getItem("token")) {
@@ -20,11 +44,7 @@ export default function Home() {
       setUsername(data.username);
     });
 
-    setLoading(true);
-    getCards().then((data) => {
-      setCards(data);
-      setLoading(false);
-    });
+    fetchData();
 
     document.title = "Home | Bizz Card";
   }, []);
@@ -54,11 +74,46 @@ export default function Home() {
             <CircularProgress color="secondary" />
           </div>
         ) : (
-          <div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-6">
             {cards.length > 0 ? (
-              cards.map((card: card) => {
-                return <div>{card.name}</div>;
-              })
+              cards.map((card: card) => (
+                <div
+                  className={`${
+                    card.color === "purple"
+                      ? "bg-purple-100"
+                      : card.color === "blue"
+                      ? "bg-blue-100 text-blue-600"
+                      : "bg-red-100 text-red-600"
+                  } flex flex-row gap-4 p-4 rounded-lg relative`}
+                >
+                  <div>
+                    <i className=" text-7xl fa fa-user"></i>
+                  </div>
+                  <div className="flex flex-col gap-4">
+                    <div>
+                      <p className="text-3xl font-bold">{card.name}</p>
+                      <p className="text-xl">{card.title}</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-4 right-2 bottom-2 absolute text-xl">
+                    <i className="fa fa-edit cursor-pointer"></i>
+                    <i
+                      className="fa fa-eye cursor-pointer"
+                      onClick={() => {
+                        setPreviewCard(true);
+                        setCardItem(card);
+                      }}
+                    ></i>
+                    <i
+                      className="fa fa-remove cursor-pointer"
+                      onClick={() => {
+                        setDeleteCard(true);
+                        setCardItem(card);
+                      }}
+                    ></i>
+                  </div>
+                </div>
+              ))
             ) : (
               <div className="text-3xl flex justify-center items-center pt-6">
                 No cards found
@@ -67,6 +122,18 @@ export default function Home() {
           </div>
         )}
       </div>
+      <Popup open={deleteCard} onClose={() => setDeleteCard(false)}>
+        <DeleteCard
+          card={cardItem}
+          onCloseCB={() => {
+            setDeleteCard(false);
+            fetchData();
+          }}
+        />
+      </Popup>
+      <Popup open={previewCard} onClose={() => setPreviewCard(false)}>
+        <PreviewCard card={cardItem} onCloseCB={() => setPreviewCard(false)} />
+      </Popup>
     </div>
   );
 }

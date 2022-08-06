@@ -76,7 +76,7 @@ export const postCards = async (
   email: string,
   phone: string,
   location: string,
-  color: string = "purple"
+  color: string
 ) => {
   const data = {
     name: name,
@@ -88,4 +88,8 @@ export const postCards = async (
     color: color,
   };
   return request("POST", data, "card/");
+};
+
+export const deleteCard = async (id: number) => {
+  return request("DELETE", {}, `card/${id}/`);
 };

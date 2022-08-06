@@ -9,5 +9,9 @@ export type card = {
   name: string;
   title: string;
   description: string;
+  phone: string;
+  email: string;
+  location: string;
   links: link[];
+  color: string;
 };
