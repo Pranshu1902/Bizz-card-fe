@@ -148,3 +148,12 @@ export const getPublicCards = async () => {
 export const getPublicLinks = async () => {
   return request("GET", {}, "public/link/");
 };
+
+export const updateProfile = async (
+  id: number,
+  username: string,
+  password: string
+) => {
+  const data = { username: username, password: password };
+  return request("PUT", data, `user/${id}/`);
+};
