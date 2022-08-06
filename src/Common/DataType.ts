@@ -1,4 +1,5 @@
 export type link = {
+  id?: number;
   link: string;
   icon: string;
   name: string;

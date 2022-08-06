@@ -96,7 +96,10 @@ export default function Home() {
                     </div>
                   </div>
                   <div className="flex gap-4 right-2 bottom-2 absolute text-xl">
-                    <i className="fa fa-edit cursor-pointer"></i>
+                    <i
+                      className="fa fa-edit cursor-pointer"
+                      onClick={() => navigate(`/update/${card.id}`)}
+                    ></i>
                     <i
                       className="fa fa-eye cursor-pointer"
                       onClick={() => {

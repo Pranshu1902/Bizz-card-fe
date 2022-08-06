@@ -1,13 +1,20 @@
 import { Button, CircularProgress, TextField } from "@mui/material";
 import { navigate } from "raviger";
 import { useEffect, useState } from "react";
-import { getCards, postCards, postLinks } from "../api/ApiUtils";
+import {
+  getCards,
+  getLinks,
+  postCards,
+  postLinks,
+  updateCard,
+  updateLinks,
+} from "../api/ApiUtils";
 import ColorRadioButton from "../Common/ColorRadioButton";
 import { link } from "../Common/DataType";
 import Header from "../Common/Header";
 import SocialMediaDropDown from "../Common/SocialMediaDropDown";
 
-export default function CreateCard() {
+export default function CreateCard(props: { type: string; id: number }) {
   const [name, setName] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -25,21 +32,50 @@ export default function CreateCard() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setLoading(true);
-    postCards(name, title, description, email, phone, location, color).then(
-      () => {
-        // getting the current card id
-        getCards().then((data) => {
-          const cardId = data[data.length - 1].id;
-          // uploading the links for current card
-          links.forEach((link) => {
-            postLinks(link.name, link.icon, link.link, cardId).then(() => {
-              setLoading(false);
-              navigate("/home");
+    if (props.type === "create") {
+      postCards(name, title, description, email, phone, location, color).then(
+        () => {
+          // getting the current card id
+          getCards().then((data) => {
+            const cardId = data[data.length - 1].id;
+            // uploading the links for current card
+            links.forEach((link) => {
+              postLinks(link.name, link.icon, link.link, cardId).then(() => {
+                setLoading(false);
+                navigate("/home");
+              });
             });
           });
+        }
+      );
+    } else {
+      updateCard(
+        name,
+        title,
+        description,
+        email,
+        phone,
+        location,
+        color,
+        props.id.toString()
+      ).then(() => {
+        links.forEach((link) => {
+          if (link.id) {
+            updateLinks(
+              link.id.toString(),
+              link.name,
+              link.icon,
+              link.link,
+              props.id.toString()
+            );
+          } else {
+            postLinks(link.name, link.icon, link.link, props.id);
+          }
         });
-      }
-    );
+        setLoading(false);
+        navigate("/home");
+      });
+    }
   };
 
   const removeLink = (href: string) => {
@@ -57,6 +93,22 @@ export default function CreateCard() {
   };
 
   useEffect(() => {
+    if (props.type === "edit") {
+      getCards().then((data) => {
+        const card = data.filter((card: any) => card.id === props.id)[0];
+        setName(card.name);
+        setTitle(card.title);
+        setDescription(card.description);
+        setEmail(card.email);
+        setColor(card.color);
+        setPhone(card.phone);
+        setLocation(card.location);
+        getLinks().then((linkData) => {
+          setLinks(linkData.filter((link: any) => link.card === props.id));
+        });
+      });
+    }
+
     document.title = "Create Card | Bizz Card";
   }, []);
 
@@ -64,7 +116,9 @@ export default function CreateCard() {
     <div>
       <Header tab={"Home"} />
       <div className="p-4 text-[#4c00b0]">
-        <p className="text-gray-500 text-4xl">Create new card</p>
+        <p className="text-gray-500 text-4xl">{`${
+          props.type === "create" ? "Create new" : "Edit"
+        } card`}</p>
         <div className="pt-6 flex justify-center gap-12">
           <div className="flex flex-col md:flex-row gap-6">
             <form onSubmit={handleSubmit}>
@@ -201,9 +255,24 @@ export default function CreateCard() {
                     <CircularProgress color="secondary" />
                   </div>
                 ) : (
-                  <Button type="submit" variant="outlined" color="primary">
-                    Create and Publish
-                  </Button>
+                  <div className="flex flex-col md:flex-row justify-between gap-2 w-full">
+                    <Button
+                      onClick={() => navigate("/home")}
+                      variant="contained"
+                      fullWidth
+                      style={{ backgroundColor: "gray", color: "white" }}
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      color="primary"
+                    >
+                      {props.type === "create" ? "Create & Publish" : "Edit"}
+                    </Button>
+                  </div>
                 )}
               </div>
             </form>

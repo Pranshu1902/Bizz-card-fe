@@ -90,6 +90,28 @@ export const postCards = async (
   return request("POST", data, "card/");
 };
 
+export const updateCard = async (
+  name: string,
+  title: string,
+  description: string,
+  email: string,
+  phone: string,
+  location: string,
+  color: string,
+  cardId: string
+) => {
+  const data = {
+    name: name,
+    title: title,
+    description: description,
+    email: email,
+    phone: phone,
+    location: location,
+    color: color,
+  };
+  return request("PUT", data, `card/${cardId}/`);
+};
+
 export const deleteCard = async (id: number) => {
   return request("DELETE", {}, `card/${id}/`);
 };
@@ -106,6 +128,17 @@ export const postLinks = async (
 ) => {
   const data = { name: name, icon: icon, link: link, card: cardId };
   return request("POST", data, "link/");
+};
+
+export const updateLinks = async (
+  id: string,
+  name: string,
+  icon: string,
+  link: string,
+  cardId: string
+) => {
+  const data = { name: name, icon: icon, link: link, card: cardId };
+  return request("PUT", data, `link/${id}/`);
 };
 
 export const getPublicCards = async () => {
