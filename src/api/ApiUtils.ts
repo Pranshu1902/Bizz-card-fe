@@ -107,3 +107,11 @@ export const postLinks = async (
   const data = { name: name, icon: icon, link: link, card: cardId };
   return request("POST", data, "link/");
 };
+
+export const getPublicCards = async () => {
+  return request("GET", {}, "public/card/");
+};
+
+export const getPublicLinks = async () => {
+  return request("GET", {}, "public/link/");
+};

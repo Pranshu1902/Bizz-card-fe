@@ -1,6 +1,6 @@
 import { Button, CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
-import { getLinks } from "../../api/ApiUtils";
+import { getLinks, me } from "../../api/ApiUtils";
 import { card, link } from "../../Common/DataType";
 
 export default function PreviewCard(props: {
@@ -10,6 +10,7 @@ export default function PreviewCard(props: {
   const { card } = props;
   const [loading, setLoading] = useState(true);
   const [links, setLinks] = useState<link[]>([]);
+  const [user, setUser] = useState(0);
 
   useEffect(() => {
     getLinks().then((datas) => {
@@ -19,6 +20,10 @@ export default function PreviewCard(props: {
         )
       );
       setLoading(false);
+    });
+
+    me().then((data) => {
+      setUser(data.id);
     });
   }, [props.card.id]);
   return (
@@ -92,7 +97,7 @@ export default function PreviewCard(props: {
             <Button
               color="secondary"
               variant="outlined"
-              href={`/preview/${card.id}`}
+              href={`/card/${user}/${card.id}`}
             >
               Link
             </Button>
