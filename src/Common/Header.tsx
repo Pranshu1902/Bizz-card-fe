@@ -22,7 +22,7 @@ export default function Header(props: { tab: string }) {
           {props.tab === "LandingPage" ? (
             <Button
               variant="contained"
-              style={{ backgroundColor: "#4c00b0" }}
+              style={{ backgroundColor: "#4c00b0", color: "white" }}
               href="/home"
             >
               Get personal card
