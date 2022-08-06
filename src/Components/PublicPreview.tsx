@@ -92,7 +92,7 @@ export default function PublicPreview(props: {
                     </div>
                   )}
                 </div>
-                <div className="flex gap-2">
+                <div className="flex gap-2 relative">
                   {links && links.length > 0 && (
                     <div className="flex gap-2">
                       {links.map((link: link) => {
@@ -111,20 +111,26 @@ export default function PublicPreview(props: {
                                   : "bg-red-200 hover:bg-red-300"
                               } hover:bg-purple-300 hover:scale-105 transition duration-300 rounded-full p-2`}
                             ></i>
-                            
                           </a>
-
                         );
-                        
                       })}
-                      <i className="fa fa-print cursor-pointer flex items-center bg-red-100 hover:bg-red-200 transition duration-300 rounded-full p-2" 
-                    onClick={()=>{
-                      window.print();return false;
-                      
-                    }}
-                    ></i>
                     </div>
                   )}
+                  <div className="absolute right-0 bottom-0">
+                    <i
+                      className={`${
+                        card.color === "purple"
+                          ? "bg-purple-200 hover:bg-purple-300"
+                          : card.color === "blue"
+                          ? "bg-blue-200 hover:bg-blue-300"
+                          : "bg-red-200 hover:bg-red-300"
+                      } hover:bg-purple-300 hover:scale-105 transition duration-300 rounded-full p-2 fa fa-print cursor-pointer flex items-center bg-red-100`}
+                      onClick={() => {
+                        window.print();
+                        return false;
+                      }}
+                    ></i>
+                  </div>
                 </div>
               </div>
             )}
