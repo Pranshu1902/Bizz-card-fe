@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import Header from "../Common/Header";
-import bg from "../Images/bg.jpeg";
+// import bg from "../Images/bg.jpeg";
 import home from "../Images/home.png";
 
 export default function LandingPage() {
